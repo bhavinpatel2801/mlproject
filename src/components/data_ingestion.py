@@ -1,12 +1,20 @@
 import os
 import sys
 from pathlib import Path
-sys.path.append(str(Path(__file__).parent.parent))
+
+# Add the 'src' directory to the system path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+
+ 
+
 from src.exception import CustomException
 from src.logger import logging
 
-import pandas as pd
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
 
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
@@ -48,7 +56,11 @@ class DataIngestion:
 
 if __name__=="__main__":
     obj=DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data, test_data=obj.initiate_data_ingestion()
+
+    data_transformation=data_transformation()
+    data_transformation.initiate_data_transformation(train_data,test_data)
+
 
 
 
